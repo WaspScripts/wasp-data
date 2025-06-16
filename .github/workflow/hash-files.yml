@@ -1,0 +1,47 @@
+name: Create Hashes
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  hash-files:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
+
+      - name: Hash all eligible files
+        shell: bash
+        run: |
+          shopt -s globstar
+          for file in **/*; do
+            # Skip directories
+            [ -d "$file" ] && continue
+
+            # Skip unwanted files and folders
+            [[ "$file" == .git/* || "$file" == .github/* || "$file" == tools/* ]] && continue
+            [[ "$file" == "LICENSE" || "$file" == "README.md" ]] && continue
+            [[ "$file" == *.hash ]] && continue
+
+            # Compute hash and save next to the file
+            HASH=$(md5sum "$file" | awk '{ print $1 }')
+            echo "$HASH" > "$file.hash"
+          done
+
+      - name: Commit hash files
+        run: |
+          git config --global user.name "Wasp Bot"
+          git config --global user.email "waspbot@waspcripts.com"
+
+          # Only commit if there are changes
+          if [[ -n "$(git status --porcelain '*.hash')" ]]; then
+            git add '*.hash'
+            CURRENT_DATE=$(date +'%Y.%m.%d')
+            COMMIT_HASH=$(git rev-parse --short HEAD)
+            git commit -m "Automatic version bump to $CURRENT_DATE-$COMMIT_HASH"
+            git push
+          else
+            echo "No hash changes to commit."
