@@ -1,5 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+*.* text eol=lf
 
 # Classify files as Pascal
 *.simba linguist-language=Pascal
@@ -12,6 +13,13 @@
 *.md linguist-documentation
 *.html linguist-documentation
 *.rst linguist-documentation
+
+*.png binary
+*.zip binary
+*.dll binary
+*.exe binary
+*.so binary
+*.dylib binary
 
 # Binary files excluded from diff
 *.png -diff
