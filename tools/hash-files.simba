@@ -1,0 +1,24 @@
+const
+  PATH: String = SimbaEnv.SimbaPath + 'wasp-data' + PATH_SEP;
+  SKIP: TStringArray = [PATH + 'LICENSE', PATH + 'README.md'];
+var
+  files: TStringArray;
+  i: Integer;
+  hash: String;
+begin
+  files := DirList(PATH, True);
+
+  for i := 0 to High(files) do
+  begin
+    if PathIsDirectory(files[i]) then Continue;
+    if files[i].StartsWith(PATH + '.git') then Continue;
+    if files[i].EndsWith('.hash') then Continue;
+    if files[i].EndsWith('.simba') then Continue;
+    if SKIP.Contains(files[i]) then Continue;
+
+    hash := HashFile(EHashAlgo.MD5, files[i]);
+    FileDelete(files[i] + '.hash');
+    FileWrite(files[i] + '.hash', hash);
+    WriteLn('File: ', PathExtractName(files[i]), ' Hash: ', hash);
+  end;
+end.
