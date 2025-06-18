@@ -30,7 +30,6 @@ jobs:
       - name: Commit hash files
         shell: bash
         run: |
-          cd ./wasp-data
           git config --global user.name "Wasp Bot"
           git config --global user.email "waspbot@waspcripts.com"
 
