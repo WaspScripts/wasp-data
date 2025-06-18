@@ -8,37 +8,24 @@ on:
 jobs:
   hash-files:
     runs-on: windows-latest
-    steps:
-      - name: Fetch Simba 2 download URL
-        id: simba-url
-        run: |
-          $url = "https://raw.githubusercontent.com/Villavu/Simba-Build-Archive/refs/heads/main/latest.win64"
-          $response = Invoke-WebRequest -Uri $url -UseBasicParsing
-          $baseUrl = $response.Content.Trim() -replace 'Win64\.zip\?raw=true$', ''
-          Write-Output "Base URL: $baseUrl"
-          echo "::set-output name=baseUrl::$baseUrl"
-          New-Item -Path ".\Includes" -ItemType Directory
-
-      - name: Download Simba 2.0 (64-bit)
-        run: |
-          $baseUrl = "${{ steps.simba-url.outputs.baseUrl }}"
-          $downloadUrl = "$baseUrl" + "Win64.zip?raw=true"
-          Write-Output "Download URL (64-bit): $downloadUrl"
-          $outputFile = ".\download.zip"
-          Invoke-WebRequest -Uri $downloadUrl -OutFile $outputFile
-          Expand-Archive -Path $outputFile -DestinationPath . -Force
-          Remove-Item -Path $outputFile -Force
-          
+    steps:          
       - name: Checkout repository
         uses: actions/checkout@v4.2.2
-        with:
-          path: ./wasp-data
 
       - name: Hash all eligible files
         shell: bash
         run: |
-          ls -a
-          ./Simba-Win64.exe --run ./wasp-data/tools/hash-files.simba
+          shopt -s globstar
+          for file in **/*; do
+            [ -d "$file" ] && continue
+            
+            [[ "$file" == .git/* || "$file" == .github/* || "$file" == tools/* ]] && continue
+            [[ "$file" == "LICENSE" || "$file" == "README.md" ]] && continue
+            [[ "$file" == *.hash ]] && continue
+            
+            HASH=$(cksum "$file" | awk '{ print $1 }')
+            echo "$HASH" > "$file.hash"
+          done
 
       - name: Commit hash files
         shell: bash
