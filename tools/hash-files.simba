@@ -16,7 +16,7 @@ begin
     if files[i].EndsWith('.simba') then Continue;
     if SKIP.Contains(files[i]) then Continue;
 
-    hash := HashFile(EHashAlgo.MD5, files[i]);
+    hash := HashFile(EHashAlgo.CRC32, files[i]);
     FileDelete(files[i] + '.hash');
     FileWrite(files[i] + '.hash', hash);
     WriteLn('File: ', PathExtractName(files[i]), ' Hash: ', hash);
