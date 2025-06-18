@@ -1,6 +1,6 @@
 const
-  RESET = False;
-  PATH = {$MACRO DIR};
+  RESET = True;
+  PATH = {$MACRO DIR} + '..' + PATH_SEP + 'finders' + PATH_SEP + 'items' + PATH_SEP;
   HASH_LENGTH = 6;
 
 type
@@ -19,23 +19,23 @@ end;
 
 procedure PrepareResources(out files: TStringArray);
 begin
-  if RESET and DirExists(PATH + 'images') then
+  if RESET and DirExists(PATH + 'items') then
   begin
     WriteLn('Resetting resources.');
-    DirDelete(PATH + 'images', False);
+    DirDelete(PATH + 'items', False);
     DirDelete(PATH + 'masks', False);
   end;
 
   FileDelete(PATH + 'data' + PATH_SEP + 'hash');
   FileDelete(PATH + 'masks.zip');
 
-  files := DirList(PATH + 'images', True);
+  files := DirList(PATH + 'items', True);
   if files = [] then
   begin
     WriteLn('Extracting item images.');
-    if not ZipExtract(PATH + 'images.zip', PATH + 'images') then
+    if not ZipExtract(PATH + 'items.zip', PATH + 'items') then
       raise 'Failed to unzip files.';
-    files := DirList(PATH + 'images', True);
+    files := DirList(PATH + 'items', True);
   end;
 
   DirCreate(PATH + 'masks');
@@ -69,8 +69,8 @@ begin
   border.DrawTPA(tpa);
 
   Result.ItemID     := PathExtractNameWithoutExt(filename).ExtractInteger();
-  Result.BorderHash := HashData(EHashAlgo.MD5, border.Data, 4608).CopyRange(0, HASH_LENGTH); //h * w * 4 = 4608
-  Result.ItemHash   := HashData(EHashAlgo.MD5, img.Data, 4608).CopyRange(0, HASH_LENGTH);
+  Result.BorderHash := HashData(EHashAlgo.CRC32, border.Data, 4608).CopyRange(0, HASH_LENGTH); //h * w * 4 = 4608
+  Result.ItemHash   := HashData(EHashAlgo.CRC32, img.Data, 4608).CopyRange(0, HASH_LENGTH);
 
   ITEM_DATA_ARRAY += Result;
 
@@ -95,13 +95,13 @@ var
   itemData: TItemData;
 begin
   for itemData in ITEM_DATA_ARRAY do
-    FileAppend(PATH + 'data' + PATH_SEP + 'hash', itemData.ItemHash + LINE_SEP);
+    FileAppend(PATH + 'data' + PATH_SEP + 'hash.txt', itemData.ItemHash + LINE_SEP);
 
   ZipFiles(PATH + 'masks.zip', ZIP_LIST);
 
   if RESET then
   begin
-    DirDelete(PATH + 'images', False);
+    DirDelete(PATH + 'items', False);
     DirDelete(PATH + 'masks', False);
   end;
 end;
@@ -121,7 +121,6 @@ begin
 
   WriteLn('Sorting data.');
   ITEM_DATA_ARRAY.Sort(@CompareItemData);
-  WriteLn ITEM_DATA_ARRAY;
   WriteLn('Saving files.');
   WriteFiles();
 end.

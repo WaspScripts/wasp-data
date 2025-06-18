@@ -1413,6 +1413,7 @@ death talisman
 noted death talisman
 law talisman
 auto-weed
+soul talisman
 nature talisman
 noted nature talisman
 archery ticket
@@ -17732,3 +17733,97 @@ castle wars bolts
 castle wars bolts
 castle wars bolts
 castle wars bolts
+carrot costume hat
+carrot costume body
+carrot costume tights
+carrot costume gloves
+oathplate armour set
+noted oathplate armour set
+demon dung
+noted demon dung
+oathplate helm
+noted oathplate helm
+oathplate chest
+noted oathplate chest
+oathplate legs
+noted oathplate legs
+soulflame horn
+noted soulflame horn
+forgotten lockbox
+oathplate shards
+oathplate shards
+oathplate shards
+oathplate shards
+oathplate shards
+aether catalyst
+diabolic worms
+chasm teleport scroll
+radiant oathplate helm
+radiant oathplate chest
+radiant oathplate legs
+purifying sigil (left)
+purifying sigil (right)
+purifying sigil (middle)
+purifying sigil (top)
+purifying sigil (bottom)
+purifying sigil
+barrel of demonic tallow (full)
+noted barrel of demonic tallow (full)
+barrel of demonic tallow
+demonic tallow
+noted demonic tallow
+dossier
+rite of vile transference
+jim's wet cloth
+contract of glyphic attenuation
+noted contract of glyphic attenuation
+contract of sensory clouding
+noted contract of sensory clouding
+contract of bloodied blows
+noted contract of bloodied blows
+contract of divine severance
+noted contract of divine severance
+contract of forfeit breath
+noted contract of forfeit breath
+contract of oathplate acquisition
+noted contract of oathplate acquisition
+contract of shard acquisition
+noted contract of shard acquisition
+contract of catalyst acquisition
+noted contract of catalyst acquisition
+contract of worm acquisition
+noted contract of worm acquisition
+contract of harmony acquisition
+noted contract of harmony acquisition
+contract of familiar acquisition
+noted contract of familiar acquisition
+aether rune
+infernal shale
+crushed infernal shale
+crushed infernal shale
+crushed infernal shale
+crushed infernal shale
+crushed infernal shale
+infernal blend
+malformed infernal blend
+infernal nugget
+cooled infernal chunk
+infernal chunk
+infernal plate
+infernal plate
+infernal plate
+infernal plate
+infernal plate
+infernal plate
+infernal plate
+surge potion(4)
+noted surge potion(4)
+surge potion(3)
+noted surge potion(3)
+surge potion(2)
+noted surge potion(2)
+surge potion(1)
+noted surge potion(1)
+polycatalytic guardian stone
+yami
+rotten turnip

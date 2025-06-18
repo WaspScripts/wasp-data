@@ -1,4 +1,4 @@
-name: Create Hashes
+name: Update Files
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 jobs:
   hash-files:
     runs-on: windows-latest
-    steps:
+    steps:          
       - name: Fetch Simba 2 download URL
         id: simba-url
         run: |
@@ -28,17 +28,35 @@ jobs:
           Invoke-WebRequest -Uri $downloadUrl -OutFile $outputFile
           Expand-Archive -Path $outputFile -DestinationPath . -Force
           Remove-Item -Path $outputFile -Force
-          
+
       - name: Checkout repository
         uses: actions/checkout@v4.2.2
         with:
           path: ./wasp-data
-
-      - name: Hash all eligible files
+          
+      - name: Check if item files changed
+        id: file_check
+        shell: bash
+        working-directory: ./wasp-data
+        run: |
+          if git diff --name-only HEAD^ HEAD | grep -q '^finders/items/data/item.txt$'; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Generate new item files
+        if: steps.file_check.outputs.changed == 'true'
         shell: bash
         run: |
           ls -a
-          ./Simba-Win64.exe --run ./wasp-data/tools/hash-files.simba
+          ./Simba-Win64.exe --extractopenssl --run ./wasp-data/tools/update_items.simba
+          ./Simba-Win64.exe --extractopenssl --run ./wasp-data/tools/update_gear.simba
+          
+      - name: Create hash files
+        shell: bash
+        run: |
+          ./Simba-Win64.exe --extractopenssl --run ./wasp-data/tools/hash-files.simba
 
       - name: Commit hash files
         shell: bash
@@ -46,9 +64,7 @@ jobs:
           cd ./wasp-data
           git config --global user.name "Wasp Bot"
           git config --global user.email "waspbot@waspcripts.com"
-
-          # Only commit if there are changes
-          if [[ -n "$(git status --porcelain '*.hash')" ]]; then
+          if [[ -n "$(git status --porcelain finders/items/data/hash.txt finders/items/masks.zip jsons/gear.json '*.hash')" ]]; then
             git add '*.hash'
             CURRENT_DATE=$(date +'%Y.%m.%d')
             COMMIT_HASH=$(git rev-parse --short HEAD)
