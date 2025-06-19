@@ -26,7 +26,7 @@ begin
     DirDelete(PATH + 'masks', False);
   end;
 
-  FileDelete(PATH + 'data' + PATH_SEP + 'hash');
+  FileDelete(PATH + 'data' + PATH_SEP + 'hash.txt');
   FileDelete(PATH + 'masks.zip');
 
   files := DirList(PATH + 'items', True);
