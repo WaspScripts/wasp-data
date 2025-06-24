@@ -91,7 +91,6 @@ begin
 
   ZIP_LIST += PATH + 'masks' + PATH_SEP + Result.BorderHash + '.png';
   mask.Save(PATH + 'masks' + PATH_SEP + Result.BorderHash + '.png', True);
-  border.Save(PATH + 'borders' + PATH_SEP + Result.BorderHash + '.png', True);
 end;
 
 procedure WriteFiles();
