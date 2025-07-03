@@ -39,11 +39,12 @@ jobs:
         shell: bash
         working-directory: ./wasp-data
         run: |
-          if git diff --name-only HEAD^ HEAD | grep -q '^finders/items/data/item.txt$'; then
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -q '^finders/items/data/item.txt$'; then
             echo "changed=true" >> $GITHUB_OUTPUT
           else
             echo "changed=false" >> $GITHUB_OUTPUT
           fi
+
       
       - name: Generate new item files
         if: steps.file_check.outputs.changed == 'true'
