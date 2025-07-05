@@ -66,9 +66,8 @@ jobs:
           cd ./wasp-data
           git config --global user.name "Wasp Bot"
           git config --global user.email "waspbot@waspcripts.com"
-          if [[ -n "$(git status --porcelain finders/items/data/hash.txt finders/items/masks.zip jsons/gear.json '*.hash')" ]]; then
+          if [[ -n "$(git status --porcelain finders/items/data/hash.txt jsons/gear.json '*.hash')" ]]; then
             git add finders/items/data/hash.txt
-            git add finders/items/masks.zip
             git add jsons/gear.json
             git add '*.hash'
             CURRENT_DATE=$(date +'%Y.%m.%d')
