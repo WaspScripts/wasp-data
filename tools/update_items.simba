@@ -104,10 +104,10 @@ begin
   writer := new TResourceWriter();
   writer.AddImages(PATH + 'items-imgs', '*.png', False);
   writer.AddImages(PATH + 'masks', '*.bmp', False);
-  writer.Save(PATH + 'images.bin');
+  writer.Save(PATH + 'items.bin');
 
   FileDelete(PATH + 'items.zip');
-  ZipFiles(PATH + 'images.zip', [PATH + 'images.bin']);
+  ZipFiles(PATH + 'items.zip', [PATH + 'items.bin']);
 
   if RESET then
   begin
