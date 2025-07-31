@@ -17846,6 +17846,123 @@ major elite scroll case
 minor master scroll case
 major master scroll case
 mimic scroll case
+wet fabric scrap
+caerula berries
+mind mender
+coin purse
+empty coin purse
+sandy coin purse
+makeshift blackjack
+branch
+potato sack
+emissary scroll
+canvas piece
+key
+arkan blade
+earthbound tecpatl
+noted earthbound tecpatl
+antique lamp
+keystone fragment
+kuhu essence
+ancient roots
+root kindling
+knife blade
+ancient teleporter
+large egg
+dragon egg
+jaguar egg
+egg
+alan's bones
+alan's bonemeal
+damiana leaves
+damiana water
+damiana tea
+damiana tea
+acatzin's axe
+acatzin's axe
+custodian stalker
+custodian stalker
+custodian stalker
+events tool
+atlatl dart tips
+atlatl dart tips
+atlatl dart tips
+atlatl dart tips
+atlatl dart tips
+atlatl dart shaft
+atlatl dart shaft
+atlatl dart shaft
+atlatl dart shaft
+atlatl dart shaft
+headless atlatl dart
+headless atlatl dart
+headless atlatl dart
+headless atlatl dart
+headless atlatl dart
+sacraments of ent folk
+ent seed
+ent seed
+ent seed
+ent seed
+greenman carving
+noted greenman carving
+greenman statue
+noted greenman statue
+greenman carving
+greenman statue
+ent branch
+greenman mask
+noted greenman mask
+greenman mask (normal)
+greenman mask (oak)
+greenman mask (willow)
+greenman mask (maple)
+greenman mask (yew)
+greenman mask (magic)
+fletching knife
+bale of flax
+dirty arrowtips
+redwood hiking staff
+noted redwood hiking staff
+bow string spool
+vale offerings
+vale offerings
+vale offerings
+vale offerings
+letter
+alan's blessed bones
+on migration patterns
+auburn valley ecological reports
+antler guard
+noted antler guard
+alchemist's signet
+broken antler
+avernic treads
+noted avernic treads
+avernic treads (pr)
+avernic treads (pe)
+avernic treads (et)
+avernic treads (pr)(pe)
+avernic treads (pr)(et)
+avernic treads (pe)(et)
+avernic treads (max)
+mokhaiotl waystone
+mokhaiotl waystone
+mokhaiotl waystone
+mokhaiotl waystone
+mokhaiotl waystone
+confliction gauntlets
+noted confliction gauntlets
+mokhaiotl cloth
+demon tear
+eye of ayak
+eye of ayak (uncharged)
+noted eye of ayak (uncharged)
+orange
+old letter
+token
+blueberry muffin
+dom
 marrentill seed
 marrentill seed
 marrentill seed

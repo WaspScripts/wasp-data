@@ -19,7 +19,7 @@ end;
 
 procedure PrepareResources(out files: TStringArray);
 begin
-  if RESET and DirExists(PATH + 'items') then
+  if RESET and DirExists(PATH + 'items-imgs') then
   begin
     WriteLn('Resetting resources.');
     DirDelete(PATH + 'items', False);
@@ -29,13 +29,13 @@ begin
   FileDelete(PATH + 'data' + PATH_SEP + 'hash.txt');
   FileDelete(PATH + 'masks.zip');
 
-  files := DirList(PATH + 'items', True);
+  files := DirList(PATH + 'items-imgs', True);
   if files = [] then
   begin
     WriteLn('Extracting item images.');
-    if not ZipExtract(PATH + 'items.zip', PATH + 'items') then
+    if not ZipExtract(PATH + 'items-imgs.zip', PATH + 'items-imgs') then
       raise 'Failed to unzip files.';
-    files := DirList(PATH + 'items', True);
+    files := DirList(PATH + 'items-imgs', True);
   end;
 
   DirCreate(PATH + 'masks');
@@ -47,7 +47,6 @@ var
   ITEM_DATA_ARRAY: TItemDataArray;
   UNIQUE_ITEM_DATA_ARRAY: TStringArray;
   UNIQUE_BORDER_DATA_ARRAY: TStringArray;
-  ZIP_LIST: TStringArray;
 
 function ProcessItemImage(filename: String): TItemData;
 var
@@ -89,22 +88,30 @@ begin
   mask.DrawColor := $FFFFFF;
   mask.DrawTPA(img.FindColor($0, 0, [0, 9, 35, 31]).Invert());
 
-  ZIP_LIST += PATH + 'masks' + PATH_SEP + Result.BorderHash + '.png';
-  mask.Save(PATH + 'masks' + PATH_SEP + Result.BorderHash + '.png', True);
+  mask.Save(PATH + 'masks' + PATH_SEP + Result.BorderHash + '.bmp', True);
 end;
 
 procedure WriteFiles();
 var
   itemData: TItemData;
+  writer: TResourceWriter;
 begin
+
   for itemData in ITEM_DATA_ARRAY do
     FileAppend(PATH + 'data' + PATH_SEP + 'hash.txt', itemData.ItemHash + LINE_SEP);
 
-  ZipFiles(PATH + 'masks.zip', ZIP_LIST);
+  FileDelete(PATH + 'items.bin');
+  writer := new TResourceWriter();
+  writer.AddImages(PATH + 'items-imgs', '*.png', False);
+  writer.AddImages(PATH + 'masks', '*.bmp', False);
+  writer.Save(PATH + 'images.bin');
+
+  FileDelete(PATH + 'items.zip');
+  ZipFiles(PATH + 'images.zip', [PATH + 'images.bin']);
 
   if RESET then
   begin
-    DirDelete(PATH + 'items', False);
+    DirDelete(PATH + 'items-imgs', False);
     DirDelete(PATH + 'masks', False);
   end;
 end;
